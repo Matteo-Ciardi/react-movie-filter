@@ -103,12 +103,6 @@ function CardList() {
                                 {genres.map((genre, index) => (
                                     <option key={index} value={genre}>{genre}</option>
                                 ))}
-
-                                {/* <option value="choose">Scegli un'opzione</option>
-                                <option value="Fantascienza">Fantascienza</option>
-                                <option value="Thriller">Thriller</option>
-                                <option value="Romantico">Romantico</option>
-                                <option value="Azione">Azione</option> */}
                             </select>
                         </div>
                     </form>
