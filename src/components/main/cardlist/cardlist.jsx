@@ -14,6 +14,8 @@ function CardList() {
     const [newTitle, setNewTitle] = useState('');
     const [newGenre, setNewGenre] = useState('');
 
+    const [genres, setGenres] = useState([]);
+
     const addMovie = e => {
         e.preventDefault();
 
@@ -26,6 +28,16 @@ function CardList() {
         setNewTitle('');
         setNewGenre('');
     }
+
+    useEffect(() => {
+        const uniqueGenres = [];
+        movies.forEach(movie => {
+            if (!uniqueGenres.includes(movie.genre)) {
+                uniqueGenres.push(movie.genre);
+            }
+        });
+        setGenres(uniqueGenres);
+    }, [movies]);
 
     useEffect(() => {
         if (select === "choose" || select === "") {
@@ -52,11 +64,17 @@ function CardList() {
                 <select name="genres"
                     value={select}
                     onChange={(e) => { setSelect(e.target.value) }}>
+
                     <option value="choose">Scegli un'opzione</option>
+                    {genres.map((genre, index) => (
+                        <option key={index} value={genre}>{genre}</option>
+                    ))}
+
+                    {/* <option value="choose">Scegli un'opzione</option>
                     <option value="Fantascienza">Fantascienza</option>
                     <option value="Thriller">Thriller</option>
                     <option value="Romantico">Romantico</option>
-                    <option value="Azione">Azione</option>
+                    <option value="Azione">Azione</option> */}
                 </select>
                 <input type="text"
                     value={search}
