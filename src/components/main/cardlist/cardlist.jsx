@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import filmlist from '../../../assets/filmlist'
+import './cardlist.css'
 
 function CardList() {
 
@@ -19,7 +20,8 @@ function CardList() {
     const addMovie = e => {
         e.preventDefault();
 
-        if (!newTitle.trim() || !newGenre.trim()) return;
+        if (!newTitle.trim() || !newGenre.trim())
+            return;
 
         const updatedMovies = [...movies,
         { title: newTitle, genre: newGenre }
@@ -59,51 +61,68 @@ function CardList() {
 
     return (
         <>
-            <form>
-                <label htmlFor="movie-select">Scegli un genere: </label>
-                <select name="genres"
-                    value={select}
-                    onChange={(e) => { setSelect(e.target.value) }}>
+            <div className="main-container">
 
-                    <option value="choose">Scegli un'opzione</option>
-                    {genres.map((genre, index) => (
-                        <option key={index} value={genre}>{genre}</option>
-                    ))}
+                <div className="main-card">
 
-                    {/* <option value="choose">Scegli un'opzione</option>
-                    <option value="Fantascienza">Fantascienza</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="Romantico">Romantico</option>
-                    <option value="Azione">Azione</option> */}
-                </select>
-                <input type="text"
-                    value={search}
-                    placeholder="Cerca il titolo"
-                    onChange={(e) => { setSearch(e.target.value) }} />
-            </form>
+                    <form onSubmit={addMovie} className="add-form">
+                        <label htmlFor="movie-add" className="label">Aggiungi un film: </label>
+                        <input className="input title"
+                            type="text"
+                            value={newTitle}
+                            placeholder="Titolo"
+                            onChange={(e) => { setNewTitle(e.target.value) }} />
 
-            <form onSubmit={addMovie}>
-                <input type="text"
-                    value={newTitle}
-                    placeholder="Inserisci il nuovo titolo"
-                    onChange={(e) => { setNewTitle(e.target.value) }} />
+                        <input className="input genre"
+                            type="text"
+                            value={newGenre}
+                            placeholder="Genere"
+                            onChange={(e) => { setNewGenre(e.target.value) }} />
 
-                <input type="text"
-                    value={newGenre}
-                    placeholder="Inserisci il nuovo genere"
-                    onChange={(e) => { setNewGenre(e.target.value) }} />
+                        <button type="submit" className="add-btn">AGGIUNGI</button>
+                    </form>
 
-                <button type="submit">AGGIUNGI</button>
-            </form>
+                    <form className="filter-search">
+                        <div className="search">
+                            <label htmlFor="search-movie" className="label">Cerca un film: </label>
+                            <input className="input"
+                                type="text"
+                                value={search}
+                                placeholder="Cerca"
+                                onChange={(e) => { setSearch(e.target.value) }} />
+                        </div>
 
-            <ul>
-                {filteredMovies.map((movie, index) => (
-                    <li
-                        key={index}>
-                        {movie.title}
-                    </li>
-                ))}
-            </ul>
+                        <div className="filter">
+                            <label htmlFor="movie-select" className="label">Scegli un genere: </label>
+                            <select className="genre-select"
+                                name="genres"
+                                value={select}
+                                onChange={(e) => { setSelect(e.target.value) }}>
+
+                                <option value="choose">Scegli un'opzione</option>
+                                {genres.map((genre, index) => (
+                                    <option key={index} value={genre}>{genre}</option>
+                                ))}
+
+                                {/* <option value="choose">Scegli un'opzione</option>
+                                <option value="Fantascienza">Fantascienza</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="Romantico">Romantico</option>
+                                <option value="Azione">Azione</option> */}
+                            </select>
+                        </div>
+                    </form>
+
+                    <ul>
+                        {filteredMovies.map((movie, index) => (
+                            <li
+                                key={index}>
+                                {movie.title}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </>
     )
 }
